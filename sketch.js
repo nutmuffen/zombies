@@ -1,29 +1,41 @@
-var mc;
+var mc = [];
 var enemies = [];
 var bullets = [];
 var ammo;
+var game = 1;
 
 function setup() {
   createCanvas (800,600);
-  mc = new mc();
+  mc[0] = new mc();
   
   for (var i = 0 ; i<5; i++){
-    enemies[i] = new Enemy(width-200, height-200, 30, random(80, 180));
+    enemies[i] = new Enemy(width-75, random(200, height-200), 30, random(80, 180));
   };
   
   test_bull = new bullet(width/2,height/2);
   
-  ammo = 6;
+  ammo = 10;
 }
 
 function draw() {
   background(0);
   
-  fill(255);
+  fill(150);
   textSize(64);
-  text("F to Fire", 100, 100);
+  text("F to Fire, R to Reset", 100, 100);
+  textSize(32);
+  text("Ammo:" + ammo, 150,150);
   
-  mc.show();
+  if (game == 0 || ammo < 1){
+    fill(255,0,0);
+    textSize(88);
+    text("GAME OVER", 200,height/2);
+    textSize(32);
+    text("git gud scrub", 200, height/2+100);
+    mc[0].die();
+  }
+  
+  mc[0].show();
   
     for (var i = 0 ; i<enemies.length; i++){
     enemies[i].show();
@@ -46,9 +58,6 @@ function draw() {
           console.log("SLOWM8");
         }
         
-      if(enemies[j].kills(mc)){
-        mc.die();
-      }
       }
     }
   
@@ -65,8 +74,8 @@ function draw() {
     }
   }
   
-  if(mc.toDelete){
-    remove();
+  if(mc[0].toDelete){
+    mc.splice(0,1);
   }
   
   if (enemies.length < 1){
@@ -75,25 +84,37 @@ function draw() {
     text("ay lmao u won", 200,200);
   }
   
-
+  mc[0].x = (mouseX);
+  mc[0].y = (mouseY);
+  
+  for (var i =0; i<enemies.length; i++){
+    if (mc[0].collides(enemies[i])){
+      console.log("fuck");
+      game = 0;
+    }
+  }
   
   
-  
-  mc.x = (mouseX);
-  mc.y = (mouseY);
   
 }
 
 function keyPressed() {
   if (key === 'F'){
-    if (ammo > 0){
+    if (ammo > 0 && game == 1){
       var bullit = new bullet(mouseX + 30, mouseY + 10);
       bullets.push(bullit);
+      ammo -= 1;
     }
     else{
       textSize(32);
       fill(255);
       text("RELOAD", 200, 200);
     }
+  }
+  
+  if(key === 'R'){
+    game = 1;
+    ammo = 10;
+    setup();
   }
 }

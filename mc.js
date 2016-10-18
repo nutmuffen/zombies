@@ -17,7 +17,19 @@ function mc(){
     
   }
   
+  this.collides = function(enemy){
+    
+    
+    var d1 = Math.abs(this.x - enemy.x)
+    if (d1 < 10 && this.y < enemy.y && this.y > enemy.y-enemy.height){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  
   this.die = function(){
-    toDelete = true;
+    fill(0);
   }
 }

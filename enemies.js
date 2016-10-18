@@ -4,8 +4,8 @@ function Enemy(x, y, w, h) {
   this.width = w;
   this.height = h;
   
-  this.xdir = random(-8,8);
-  this.ydir = random(-8,8); 
+  this.xdir = random(-1,1) * 10
+  this.ydir = random(-1,1)* 10 
 
   this.toDelete = false; 
   
@@ -15,6 +15,9 @@ function Enemy(x, y, w, h) {
     rect(this.x, this.y - this.height, this.width, this.height);
     fill(200, 100, 0);
     rect(this.x, this.y - this.height + 3, this.width - 4, 25);
+    rect(this.x, this.y, 4, 10);
+    
+    rect(this.x+25, this.y, 5, 10);
   }
   
   this.move = function(){
@@ -38,17 +41,17 @@ function Enemy(x, y, w, h) {
   
   this.slow = function(){
     if (this.xdir > 0){
-      this.xdir -= .2;
+      this.xdir -= 3;
     }
     else{
-      this.xdir += .2;
+      this.xdir += 3;
     }
     
     if (this.ydir > 0){
-      this.ydir -= .2;
+      this.ydir -=3 ;
     }
     else{
-      this.ydir += .2;
+      this.ydir += 3;
     }
   }
   
