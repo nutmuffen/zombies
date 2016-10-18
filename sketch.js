@@ -8,13 +8,13 @@ function setup() {
   createCanvas (800,600);
   mc[0] = new mc();
   
-  for (var i = 0 ; i<5; i++){
+  for (var i = 0 ; i<7; i++){
     enemies[i] = new Enemy(width-75, random(200, height-200), 30, random(80, 180));
   };
   
   test_bull = new bullet(width/2,height/2);
   
-  ammo = 10;
+  ammo = 12;
 }
 
 function draw() {
@@ -114,7 +114,7 @@ function keyPressed() {
   
   if(key === 'R'){
     game = 1;
-    ammo = 10;
+    ammo = 12;
     setup();
   }
 }
